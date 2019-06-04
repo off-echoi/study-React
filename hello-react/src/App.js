@@ -6,6 +6,7 @@ function App() {
   const text = "Hello React";
   const condition = true;
   const style = {
+    // 인라인 스타일은 카멜 스타일로
     backgroundColor:'gray',
     border:'1px solid black',
     height: Math.round(Math.random()*300) + 50,
@@ -15,6 +16,7 @@ function App() {
     marginTop:'40px'
   }
   return (
+    // class 말고 className 쓰기
     <div className="my-div">
       {/* 요소 밖 주석 */}
       <h4>aaaaaa</h4>
