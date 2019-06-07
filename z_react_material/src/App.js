@@ -44,11 +44,11 @@ class App extends Component {
           <Table className = {classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>번호</TableCell>
-                <TableCell>이름</TableCell>
-                <TableCell>생일</TableCell>
-                <TableCell>성별</TableCell>
-                <TableCell>직업</TableCell>
+                <TableCell>번 호</TableCell>
+                <TableCell>이 름</TableCell>
+                <TableCell>생 일</TableCell>
+                <TableCell>성 별</TableCell>
+                <TableCell>직 업</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
