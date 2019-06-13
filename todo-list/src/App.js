@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MyComponent from './MyComponent';
+// import MyComponent from './MyComponent';
 import EventPractice from './EventPractice';
 
 class App extends Component {
@@ -19,15 +19,3 @@ class App extends Component {
 }
 
 export default App;
-
-// import React from 'react';
-// import MyComponent from './MyComponent';
-
-// function App() {
-//     return ( 
-//       
-//        <MyComponent name="react"></MyComponent>
-//     );
-// }
-
-// export default App;
