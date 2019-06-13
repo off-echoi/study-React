@@ -4,7 +4,12 @@ class EventPractice extends Component {
     render() {
         return (
             <div>
-                <h1>이벤트 연습</h1>
+                <button onClick={()=>{
+                        this.setState({
+                            number:this.state.number + 1
+                        })
+                    }
+                }>더하기</button>
             </div>
         );
     }
