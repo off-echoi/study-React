@@ -18,10 +18,21 @@ class EventPractice extends Component {
                     (e) => {
                         this.setState({
                             message: e.target.value
+                            
                         })
+
                     }
                 }
                 />
+                <button onClick={ 
+                    () => {
+                            alert(this.state.message);
+                            this.setState({
+                                message:''
+                            })
+                        }
+                    }
+                >확인</button>
             </div>
         );
     }
