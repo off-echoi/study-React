@@ -27,12 +27,11 @@ class EventPractice extends Component {
     render() {
         return (
             <div>
-<<<<<<< Updated upstream
                 <h1>이벤트 연습</h1>
                 <input
                     type="text"
                     name="username"
-                    placeholder="유저병"
+                    placeholder="유저"
                     value={this.state.username}
                     onChange={this.handleChnage}
                 />
@@ -44,17 +43,10 @@ class EventPractice extends Component {
                     onChange={this.handleChnage}
                 />
                 <button onClick={this.handleClick}>확인</button>
-=======
-                <button onClick={()=>{
-                        this.setState({
-                            number:this.state.number +  1
-                        })
-                    }
-                }>더하기</button>
->>>>>>> Stashed changes
             </div>
         );
     }
 }
 
 export default EventPractice;
+
