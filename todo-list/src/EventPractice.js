@@ -12,12 +12,12 @@ class EventPractice extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleChnage(e){
+    handleChnage=(e)=>{
         this.setState({
             [e.target.name]:e.target.value
         });
     }
-    handleClick(){
+    handleClick=()=>{
         alert(this.state.username + ' : '+ this.state.message);
         this.setState({
             username:'',
