@@ -24,6 +24,11 @@ class EventPractice extends Component {
             message:''
         })
     }
+    handleKeyPress=(e)=>{
+        if(e.key ==='Enter'){
+            this.handleClick();
+        }
+    }
     render() {
         return (
             <div>
@@ -41,6 +46,7 @@ class EventPractice extends Component {
                     placeholder="아무거나"
                     value={this.state.message}
                     onChange={this.handleChnage}
+                    onKeyPress={this.handleKeyPress}
                 />
                 <button onClick={this.handleClick}>확인</button>
             </div>
