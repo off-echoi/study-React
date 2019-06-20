@@ -14,7 +14,8 @@ class App extends Component {
        <MyComponent name="React" age={3}/>
       
         <MyComponent name={2} age={3}/>
-        이 경우 출력은 되지만 proptypes.string 으로 인해 콘솔창에 에러 발생
+        이 경우 출력 은 되지만 proptypes.string 으로  인해 콘솔창에 에러 발생
+        
                 <EventPractice/>
         <ValidationSample/> */}
         {/* <ScrollBox ref={(ref)=>this.ScrollBox=ref}/>
