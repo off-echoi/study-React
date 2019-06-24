@@ -8,7 +8,7 @@ class LifeCycleSample extends Component {
     state = {
         number:0,
         color:null,
-    }
+    } 
 
     myRef = null // ref를 설정 할 부분
 
@@ -20,7 +20,7 @@ class LifeCycleSample extends Component {
     }
     static getDerivedStateFromProps(nextProps,nextState){
         //props에 있는 값을 state 에 동기화  
-        // =================================== 동기화하는 이유? ++++++++++++++++++++++++++++++++++++++++++++++
+        // =================================== 동기화하는 이유? props 가 부모에서 값을 주니까 state를 업데이트 하기위해서
         // 컴포넌트를 마운트하거나 props를 바뀌어 업데이트 할 때 사용
         console.log('getDerivedStateFromProps ========================================')
         if(nextProps.color !== nextState.color){
