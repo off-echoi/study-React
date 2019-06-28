@@ -15,15 +15,16 @@ class LifeCycleSample extends Component {
     constructor(props) {
         // 생성자 메서드 / 초기 state 정하기 
         // 컴포넌트를 만들 때 처음으로 실행
+        // super(Props를 사용하지 않으면 this. 를 사용 못함)
         super(props);
         console.log('constructor 처음으로 실행! ')
     }
-    static getDerivedStateFromProps(nextProps,nextState){
+    static getDerivedStateFromProps(nextProps,nextStates){
         //props에 있는 값을 state 에 동기화  
         // =================================== 동기화하는 이유? props 가 부모에서 값을 주니까 state를 업데이트 하기위해서
         // 컴포넌트를 마운트하거나 props를 바뀌어 업데이트 할 때 사용
         console.log('getDerivedStateFromProps ========================================')
-        if(nextProps.color !== nextState.color){
+        if(nextProps.color !== nextStates.color){
             return{color:nextProps.color};
             //조건에 따라 특정값 동기화
         }
@@ -81,7 +82,7 @@ class LifeCycleSample extends Component {
     render() {
         // 컴포넌트의 모양새를 정의
         // 안에서 this.props와 this.state를 접근할 수 있음
-        // 절대로 state 변화나, 브라우저에 접근 하지 말 것!
+        // 절대로 state 변화나,  브라우저에 접근 하지 말 것! 
         console.log('render')
         const style = {
             color:this.props.color
