@@ -10,7 +10,7 @@ class LifeCycleSample extends Component {
         color:null,
     } 
 
-    myRef = null // ref를 설정 할 부분
+    myRef = null // ref를 설정 할 부분  
 
     constructor(props) {
         // 생성자 메서드 / 초기 state 정하기 
