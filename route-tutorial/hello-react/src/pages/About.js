@@ -6,13 +6,14 @@ const About = ({location,match})=>{
     console.log(query)
 
     const {color} = query;
-    const{ detail} = query.detail === 'true';
+    const{detail} = query.detail === 'true';
 
     return (
         <div>
             <h2 style={{color}}>소개</h2>
             <p>
                 안녛아세요, 저는 {match.params.name} 입니다.
+                {/* params 가변인자 매개변수.... 롸/ */}
                 {{detail} && ' blahblah'}
             </p>
         </div>
