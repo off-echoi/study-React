@@ -47,7 +47,6 @@ class LifeCycleSample extends Component {
         //숫자의 마지막 자리가 4이면 리랜더링하지 않습니다.
         return nextState.number % 10 !== 4;
         // % 는 나머지 연산자 
-        // =====  위의 것이 무슨뜻일까용...? +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
     componentWillUnmount(){
         // 컴포넌트의 업데이트 작업이 끝난 뒤 호출
