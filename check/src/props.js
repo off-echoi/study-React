@@ -5,7 +5,7 @@ class props extends Component {
         return (
             <div className="text-field">
                 <label>
-                    <span>{this.props.label}</span>
+                    <span>{this.props.label}asdf</span>
                     <input {...this.props} />
                 </label>
             </div>
