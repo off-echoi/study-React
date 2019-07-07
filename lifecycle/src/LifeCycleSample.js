@@ -16,13 +16,16 @@ class LifeCycleSample extends Component {
         // 생성자 메서드 / 초기 state 정하기 
         // 컴포넌트를 만들 때 처음으로 실행
         // super(Props를 사용하지 않으면 this. 를 사용 못함)
+        debugger;
         super(props);
         console.log('constructor 처음으로 실행! ')
+
     }
     static getDerivedStateFromProps(nextProps,nextStates){
         //props에 있는 값을 state 에 동기화  
         // =================================== 동기화하는 이유? props 가 부모에서 값을 주니까 state를 업데이트 하기위해서
         // 컴포넌트를 마운트하거나 props를 바뀌어 업데이트 할 때 사용
+        debugger;
         console.log('getDerivedStateFromProps ========================================')
         if(nextProps.color !== nextStates.color){
             return{color:nextProps.color};
@@ -30,15 +33,20 @@ class LifeCycleSample extends Component {
         }
         return null; // state를 변경할 필요가 없다면 null을 반환
 
+
     }
     
     componentDidMount(){
+    debugger;
+
         // 컴포넌트가 웹브라우저에 나타난 후 호출
         // 다른 자바스트립트 라이브러리, 프레임워크 함수를 호출, 이벤트 등록 , setTimeOut, setInterval , 네트워크등록 같은 비동기 작업을 처리
         console.log('componentDidMount 컴포넌트가 화면에 나타난 후 호출 되었습니다.')
     }
 
     shouldComponentUpdate(nextProps,nextState){
+    debugger;
+
         // 컴포넌트가 리렌더링 할지 말아야 할지를 결정하는 메서드 반드시 true 혹은 false 값을 반환해야 함
         // false를 반환화면 아래의 메서드들을 호출하지 않음 (render , gersnapshotBeforeMount , componentDidMount)
         // 별도로 지정해주지 않으면 기본적으로 true를 반환
@@ -50,6 +58,8 @@ class LifeCycleSample extends Component {
         // =====  위의 것이 무슨뜻일까용...? +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
     componentWillUnmount(){
+    debugger;
+
         // 컴포넌트의 업데이트 작업이 끝난 뒤 호출
         console.log('componentWillUnmount 컴포넌트 업데이트 완료 후 호출!')
     }
@@ -61,6 +71,8 @@ class LifeCycleSample extends Component {
     }
 
     getSnapshotBeforeUpdate(prevProp,prevState){
+    debugger;
+
         // 컴포넌트 변화를 DOM에 반영하기 바로 직전에 호출하는 메서드 ( ex 스크롤바위치 등을 전달 받을 수 있음)
         // 여기서 반환하는 값은 componentDidMount에서 세번째 파라미터 snapshot으로 전달받을 수 있음
         console.log('getSnapshotBeforeUpdate 변화를 DOM에 반영하기 직전!!');
@@ -71,6 +83,8 @@ class LifeCycleSample extends Component {
     }
 
     componentDidUpdate(prevProp,prevState,snapshot){
+    debugger;
+
         // precProps prevState를 사용하여 컴포넌트가 이전에 가졌던 데이터에 접근 가능
         // snapshot 값을 전달 받음
         console.log('componentDidUpdate ');
@@ -80,6 +94,8 @@ class LifeCycleSample extends Component {
     }
     
     render() {
+    debugger;
+
         // 컴포넌트의 모양새를 정의
         // 안에서 this.props와 this.state를 접근할 수 있음
         // 절대로 state 변화나,  브라우저에 접근 하지 말 것! 
