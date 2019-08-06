@@ -5,32 +5,32 @@ class ThrowData extends Component {
     constructor(props){
         super(props);
         this.state ={
-            // list :[
-            //     {
-            //         name : 'Natasha',
-            //         age : 22,
-            //         phone : '010-1234-5678',
-            //         gender : 'F'
-            //     },
-            //     {
-            //         name : 'Tessa',
-            //         age : 21,
-            //         phone : '010-4321-0987',
-            //         gender: 'F',
-            //     },
-            //     {
-            //         name : 'Peter',
-            //         age : 25,
-            //         phone : '011-2442-5555',
-            //         gender: 'M',
-            //     },
-            //     {
-            //         name : 'Johne',
-            //         age : 23,
-            //         phone : '010-4621-5445',
-            //         gender: 'M',
-            //     },
-            // ],
+            list :[
+                {
+                    name : 'Natasha',
+                    age : 22,
+                    phone : '010-1234-5678',
+                    gender : 'F'
+                },
+                {
+                    name : 'Tessa',
+                    age : 21,
+                    phone : '010-4321-0987',
+                    gender: 'F',
+                },
+                {
+                    name : 'Peter',
+                    age : 25,
+                    phone : '011-2442-5555',
+                    gender: 'M',
+                },
+                {
+                    name : 'Johne',
+                    age : 23,
+                    phone : '010-4621-5445',
+                    gender: 'M',
+                },
+            ],
             nameDate : '',
             phoneData : '',
         }
@@ -43,18 +43,20 @@ class ThrowData extends Component {
         }, ()=> console.log('>>>>>>>>>>>>', this.state.nameDate))
     }
 
-    throwDatachild=()=>{
-        this.props.getDate(this.state.nameDate, this.state.phoneData),
+    throwDatachild = () => {
+        this.props.getDate(this.state.nameDate)
+        // this.props.getDate(this.state.nameDate, this.state.phoneData)
     }
 
     render() {
         // console.log('>>>>>>>>>>>>>',this.props.listData)
-        return (
+        // console.log('>>>>>>>>', this.props.getDate)
+        return (  
             <Fragment>
                 <h5>자식컴포넌트 > 부모컴포넌트 전달 (버튼은 자식컴포넌트)</h5>
                 <ul>
                     {
-                        this.props.listData.map((v,listIndex) => {
+                        this.state.list.map((v,listIndex) => {
                             return(
                                 <li className="listStyle" key={listIndex}>
                                     <button onClick={(e)=>this.throwDataEvent(v.name,v.phone)}>
@@ -67,7 +69,7 @@ class ThrowData extends Component {
                         })
                     }
                 </ul>
-                <button onClick={this.throwDatachild}>보내기</button>
+                <button onClick={()=> this.throwDatachild()}>보내기</button>
             </Fragment>
         );
     }
