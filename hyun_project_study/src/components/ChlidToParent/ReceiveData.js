@@ -7,6 +7,7 @@ class ReceiveData extends Component {
         this.state ={
             // list :[
             //     {
+                
             //         name : 'Natasha',
             //         age : 22,
             //         phone : '010-1234-5678',
