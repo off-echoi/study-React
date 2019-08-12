@@ -31,21 +31,20 @@ class ThrowData extends Component {
                     gender: 'M',
                 },
             ],
-            nameDate : '',
+            nameData : '',
             phoneData : '',
         }
     }
 
-    throwDataEvent = (dataName,dataPhone) =>{
+    saveData = (dataName,dataPhone) =>{
         this.setState({
-            nameDate : dataName ,
+            nameData : dataName ,
             phoneData : dataPhone ,
-        }, ()=> console.log('>>>>>>>>>>>>', this.state.nameDate))
+        }, ()=> console.log('Name >>>>>>>>>>>>', this.state.nameData, '\nPhone >>>>>>>>>>>>', this.state.phoneData))
     }
 
-    throwDatachild = () => {
-        this.props.getDate(this.state.nameDate)
-        // this.props.getDate(this.state.nameDate, this.state.phoneData)
+    throwDatachild = (e) => {
+        this.props.getDate(this.state.nameData,this.state.phoneData)
     }
 
     render() {
@@ -59,7 +58,7 @@ class ThrowData extends Component {
                         this.state.list.map((v,listIndex) => {
                             return(
                                 <li className="listStyle" key={listIndex}>
-                                    <button onClick={(e)=>this.throwDataEvent(v.name,v.phone)}>
+                                    <button onClick={(e)=>this.saveData(v.name,v.phone)}>
                                         <p>Name : {v.name} <span>({v.gender})</span></p>
                                         <p>Age : {v.age}</p>
                                         <p>Phoen : {v.phone}</p>
@@ -69,7 +68,7 @@ class ThrowData extends Component {
                         })
                     }
                 </ul>
-                <button onClick={()=> this.throwDatachild()}>보내기</button>
+                <button onClick={(e)=> this.throwDatachild(e)}>보내기</button>
             </Fragment>
         );
     }
