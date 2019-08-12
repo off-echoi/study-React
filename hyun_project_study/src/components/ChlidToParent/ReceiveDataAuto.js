@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ThrowData from './Child/ThrowData'
+import ThrowDataAuto from './Child/ThrowDataAuto'
 
 class ReceiveData extends Component {
     constructor(props) {
@@ -14,18 +14,21 @@ class ReceiveData extends Component {
         this.setState({
             getDataName: PnameData,
             getDataPhone : PphoneData
-        })
+        },
+        ()=>console.log('1111111111111',this.state.getDataName,'=================')
+        )
     }
 
+ 
     render() {
         return (
             <div>
-                <h3>보내기 버튼 클릭 시 데이터 전달</h3>
+                <h3>자동으로 데이터 전달</h3>
                 <p>
                     받은 이름 : {this.state.getDataName} <br/>
                     받은 핸드폰번호 : {this.state.getDataPhone}
                 </p>
-                <ThrowData getDate ={this.getDataEvent}/>
+                <ThrowDataAuto getDate ={this.getDataEvent}/>
             </div>
         );
     }
