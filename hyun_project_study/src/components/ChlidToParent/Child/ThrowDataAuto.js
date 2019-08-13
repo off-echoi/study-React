@@ -37,13 +37,24 @@ class ThrowData extends Component {
         }
     }
 
-    saveData = (dataName,dataPhone) =>{
+    // saveData = (dataName,dataPhone) =>{
+    //     this.setState({
+    //         nameData : dataName ,
+    //         phoneData : dataPhone ,
+    //     },
+    //     ()=> this.props.getDate(this.state.nameData,this.state.phoneData)
+    //     ) 
+    // }
+    saveData = (dataName,dataPhone)=>{
         this.setState({
             nameData : dataName ,
             phoneData : dataPhone ,
-        },
-        ()=> this.props.getDate(this.state.nameData,this.state.phoneData)
-        ) 
+        },()=>this.aaa())
+    }
+
+
+    aaa = () =>{
+        this.props.getDate(this.state.nameData,this.state.phoneData)
     }
 
     render() {

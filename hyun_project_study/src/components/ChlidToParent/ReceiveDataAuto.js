@@ -14,9 +14,7 @@ class ReceiveData extends Component {
         this.setState({
             getDataName: PnameData,
             getDataPhone : PphoneData
-        },
-        ()=>console.log('1111111111111',this.state.getDataName,'=================')
-        )
+        })
     }
 
  
