@@ -31,7 +31,7 @@ class App extends Component {
   render() { 
     return (
       <div>
-        {/* <Val></Val> */}
+        {/* <Val>    </Val> */}
         {/* <Movie moviesList = {movies}/> */}
         {
           movies.map((movie)=>{
