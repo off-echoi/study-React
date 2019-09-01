@@ -39,14 +39,21 @@ class ThrowParentData extends Component {
     }
     
     saveData = (thisName, thisPhone) => {
-        this.setState({
-            saveName : thisName,
-            savePhone : thisPhone
-        },()=>console.log(this.state.saveName))
+        let nameData = thisName;
+        let phoneData = thisPhone;
+        console.log('name >>>>>>>>>>>>>>>>>>',  nameData);
+        console.log('phone >>>>>>>>>>>>>>>>>>',  phoneData);
+        // this.setState({
+        //     saveName : thisName,
+        //     savePhone : thisPhone
+        // })
     }
 
     throwData = () => {
-
+        this.setState({
+            saveName : nameData,
+            savePhone : phoneData
+        })
     }
     
     render() {
@@ -62,7 +69,7 @@ class ThrowParentData extends Component {
                         this.state.list.map((v,listIndex)=> {
                             return(
                                 <li key={listIndex} className="listStyle">
-                                    <button onClick={(e)=> this.saveData(v.name, v.phone)}>
+                                    <button onClick={()=> this.saveData(v.name, v.phone)}>
                                         <p>Name : {v.name} <span>({v.gender})</span></p>
                                         <p>Age : {v.age}</p>
                                         <p>Phone : {v.phone}</p>
@@ -72,7 +79,7 @@ class ThrowParentData extends Component {
                         })
                     }
                 </ul>
-                <button onClick = {(e) => this.throwData()} >보내기</button>
+                <button onClick = {() => this.throwData()} >보내기</button>
                
             </div>
         );
