@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/off-echoi/react_study#readme",
   "dependencies": {
-    "create-react-app": "^3.0.1"
+    "create-react-app": "^3.1.1"
   },
   "devDependencies": {}
 }
