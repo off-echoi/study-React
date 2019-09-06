@@ -244,7 +244,7 @@ class BoardList extends Component {
                 </ul>
                 
                 <ul className="btnGroup">
-                    <li><button>처음</button></li>
+                    <li><button>처 음</button></li>
                     <li><button>이전</button></li>
                     <li>
                         {/* 페이지 번호 분할(10개 단위로) */}
