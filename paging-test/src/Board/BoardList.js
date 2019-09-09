@@ -248,7 +248,7 @@ class BoardList extends Component {
             //페이지의 인덱스
             pageIndex:0,
             //현재페이지
-            currentPage:0,
+            currentPage:1,
             //전체 페이지
             totalPage:1,
             //총 페이지 갯 수 리스트
@@ -267,7 +267,7 @@ class BoardList extends Component {
         return (
             <div>
                 <Title text={this.state.pageTitle}/>
-                <p className="pageState">{this.state.currentPage+1} of { this.state.totalPage}</p>
+                <p className="pageState">{this.state.currentPage} of { this.state.totalPage}</p>
                 <ul className="boardContent">
                     {
                         this.state.newSliceList.map((v,i)=>{
@@ -292,7 +292,7 @@ class BoardList extends Component {
                             {
                                 this.state.pgaeList.map((page,pageIndex)=>{
                                     return(
-                                        <li key={pageIndex} onClick={()=>this.clickNumber(page-1)}><a href="#">{page-1}</a></li>
+                                        <li key={pageIndex} onClick={()=>this.clickNumber(page)}><a href="#">{page}</a></li>
                                         // 추후 추가 className = {newSliceList[i] === currentPage ? currentPageCss : null}
                                     )
                                 })
@@ -327,7 +327,7 @@ class BoardList extends Component {
 
     boardListFnc=()=>{
         let sliceListArray = [];
-        // ========================= 리스트 10개로 나누기
+        // ========================= 리스트 5개로 나누기
         for(let i=0; i<this.state.boardTitle.length; i+=5){
             // 게시판 5개로 자르기
             // console.log(i)
@@ -340,7 +340,7 @@ class BoardList extends Component {
         // console.log(sliceListArray[1])
 
         this.setState({
-            newSliceList:sliceListArray[this.state.currentPage],
+            newSliceList:sliceListArray[this.state.currentPage-1],
         },()=>{
             // 페이지 리스트 콜백으로 불러옴
             // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',this.state.currentPage)
