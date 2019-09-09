@@ -215,42 +215,91 @@ class BoardList extends Component {
                     seq:52,
                     title:'게시판 제목 52'
                 },
+                {
+                    seq:53,
+                    title:'게시판 제목 53'
+                },
+                {
+                    seq:54,
+                    title:'게시판 제목 54'
+                },
+                {
+                    seq:55,
+                    title:'게시판 제목 55'
+                },
+                {
+                    seq:56,
+                    title:'게시판 제목 56'
+                },
+                {
+                    seq:57,
+                    title:'게시판 제목 57'
+                },
+                {
+                    seq:58,
+                    title:'게시판 제목 58'
+                },
             ],
-            newSliceList:[],
-            //
+            //5개씩 나눈 페이지 배열
+            newSliceList:[
+                // ================== this.boardListFnc();
+                // [{seq,title}],[{seq,title}]...[{seq,title}]
+            ],
+            //페이지의 인덱스
+            pageIndex:0,
+            //현재페이지
             currentPage:0,
-            // 총 페이지 갯 수 ===> 페이징 번호에 들어가야 함
-            pageNumber:1,
+            //전체 페이지
+            totalPage:1,
+            //총 페이지 갯 수 리스트
+            pgaeList :[
+                // ================== this.pageListFnc();
+                // 1,2,3,4,5,6...12...
+            ]
 
         }
     }
 
     render() {
+        // console.log('PLF',this.state.newSliceList.length);
+        console.log(this.state.currentPage)
+        
         return (
             <div>
                 <Title text={this.state.pageTitle}/>
-                <p className="pageState">{this.state.currentPage } of { this.state.pageNumber}</p>
+                <p className="pageState">{this.state.currentPage+1} of { this.state.totalPage}</p>
                 <ul className="boardContent">
                     {
-                        this.state.boardTitle.map((v,i)=>{
+                        this.state.newSliceList.map((v,i)=>{
+                            // console.log('>>>>>>>>>>>>>>',this.state.newSliceList[this.state.pageIndex]);
                             return(
-                                <li className="list">
+                                <li className="list" key={i}>
                                     <span>{v.seq}</span> 
                                     <a href="#" className="listTitle">{v.title}</a>
                                 </li>
-                            );
+                            )
                         })
                     }
+                    
                 </ul>
                 
                 <ul className="btnGroup">
+                    <li><button>처음</button></li>
                     <li><button>이전</button></li>
                     <li>
                         {/* 페이지 번호 분할(10개 단위로) */}
                         <ol className="pageNumberList">
-                            <li><a href="#" className="currentPage">1</a></li>
+                            {
+                                this.state.pgaeList.map((page,pageIndex)=>{
+                                    return(
+                                        <li key={pageIndex} onClick={()=>this.clickNumber(page-1)}><a href="#">{page-1}</a></li>
+                                        // 추후 추가 className = {newSliceList[i] === currentPage ? currentPageCss : null}
+                                    )
+                                })
+                            }
+                            {/* <li><a href="#" className="currentPageCss">1</a></li>
                             <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
+                            <li><a href="#">3</a></li> */}
                         </ol>
                     </li>
                     <li><button>다음</button></li>
@@ -265,12 +314,20 @@ class BoardList extends Component {
         this.boardListFnc();
         this.paging();
     }
+
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     this.pageListFnc();
+    //     //업데이트 후에 다시 setState되고 다시 되고 반복반복반복반복 (무한루프)
+    // }
+    
     paging=()=>{
       
     }
+
     boardListFnc=()=>{
         let sliceListArray = [];
-        //리스트 10개로 나누기
+        // ========================= 리스트 10개로 나누기
         for(let i=0; i<this.state.boardTitle.length; i+=5){
             // 게시판 5개로 자르기
             // console.log(i)
@@ -279,11 +336,41 @@ class BoardList extends Component {
             
             sliceListArray.push (sliceList);
         };
-        console.log(sliceListArray)
+        // console.log(sliceListArray)
+        // console.log(sliceListArray[1])
+
         this.setState({
-            pageNumber:sliceListArray.length
+            newSliceList:sliceListArray[this.state.currentPage],
+        },()=>{
+            // 페이지 리스트 콜백으로 불러옴
+            // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',this.state.currentPage)
+            this.pageListFnc();
         })
     }
+
+    pageListFnc=()=>{
+        // =============================== 페이지 숫자 리스트
+        let test = Math.ceil(this.state.boardTitle.length/5)
+        let pageArray = []
+        for(let k =0; k<test; k++){
+            pageArray.push(k+1)
+        }
+        this.setState({
+            totalPage:test,
+            pgaeList:pageArray,
+        })
+    }
+
+    clickNumber=(page)=>{
+        // ============================== 숫자 눌렀을 때 게시판 리스트 이동
+        // console.log(this.state.pgaeList);
+        // console.log(page)
+        this.setState({
+            currentPage:page,
+        },()=> this.boardListFnc());
+        
+    }
+
 }
 
 export default BoardList;
