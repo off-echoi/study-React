@@ -284,16 +284,15 @@ class BoardList extends Component {
                 </ul>
                 
                 <ul className="btnGroup">
-                    <li><button>처음</button></li>
-                    <li><button>이전</button></li>
+                    <li><button onClick={()=>this.firstPaging()} disabled={this.state.currentPage === 1 ? true : false}>처음</button></li>
+                    <li><button disabled={this.state.currentPage === 1 ? true : false}>이전</button></li>
                     <li>
                         {/* 페이지 번호 분할(10개 단위로) */}
                         <ol className="pageNumberList">
                             {
                                 this.state.pgaeList.map((page,pageIndex)=>{
                                     return(
-                                        <li key={pageIndex} onClick={()=>this.clickNumber(page)}><a href="#">{page}</a></li>
-                                        // 추후 추가 className = {newSliceList[i] === currentPage ? currentPageCss : null}
+                                        <li key={pageIndex}><a href="#" onClick={()=>this.clickNumber(page)} className={page === this.state.currentPage ? 'currentPageCss' : null}>{page}</a></li>
                                     )
                                 })
                             }
@@ -302,8 +301,8 @@ class BoardList extends Component {
                             <li><a href="#">3</a></li> */}
                         </ol>
                     </li>
-                    <li><button>다음</button></li>
-                    <li><button>끝</button></li>
+                    <li><button disabled={this.state.currentPage === this.state.pgaeList.length ? true : false}>다음</button></li>
+                    <li><button onClick={()=>this.lastPaging()} disabled={this.state.currentPage === this.state.pgaeList.length ? true : false}>맨끝</button></li>
                 </ul>
             </div>
 
@@ -312,7 +311,7 @@ class BoardList extends Component {
 
     componentDidMount(){
         this.boardListFnc();
-        this.paging();
+        // this.paging();
     }
 
 
@@ -321,9 +320,18 @@ class BoardList extends Component {
     //     //업데이트 후에 다시 setState되고 다시 되고 반복반복반복반복 (무한루프)
     // }
     
-    paging=()=>{
-      
+    firstPaging=()=>{
+        // ================================== 페이지 처음 이전 다음 맨끝 버튼
+        this.setState({
+            currentPage:1
+        },()=> this.boardListFnc())
     }
+    lastPaging=()=>{
+        this.setState({
+            currentPage:this.state.pgaeList.length
+        },()=> this.boardListFnc())
+    }
+    
 
     boardListFnc=()=>{
         let sliceListArray = [];
@@ -354,6 +362,10 @@ class BoardList extends Component {
         let pageArray = []
         for(let k =0; k<test; k++){
             pageArray.push(k+1)
+        }
+        if(pageArray >5){
+            //페이지가 5개가 넘으면 잘라서 나누어야 함
+
         }
         this.setState({
             totalPage:test,
