@@ -245,8 +245,6 @@ class BoardList extends Component {
                 // ================== this.boardListFnc();
                 // [{seq,title}],[{seq,title}]...[{seq,title}]
             ],
-            //페이지의 인덱스
-            pageIndex:0,
             //현재페이지
             currentPage:1,
             //전체 페이지
@@ -254,15 +252,19 @@ class BoardList extends Component {
             //총 페이지 갯 수 리스트
             pgaeList :[
                 // ================== this.pageListFnc();
-                // 1,2,3,4,5,6...12...
-            ]
-
+                // 1,2,3,4,5,6...12
+            ],
+            newPageArrays:[
+                //페이지리스트를 5개씩 나눈 새로운 배열(pgaeList group)
+            ],
+            //페이지의 인덱스
+            newPageArraysIndex:0,
         }
     }
 
     render() {
         // console.log('PLF',this.state.newSliceList.length);
-        console.log(this.state.currentPage)
+        // console.log(this.state.currentPage)
         
         return (
             <div>
@@ -285,7 +287,7 @@ class BoardList extends Component {
                 
                 <ul className="btnGroup">
                     <li><button onClick={()=>this.firstPaging()} disabled={this.state.currentPage === 1 ? true : false}>처음</button></li>
-                    <li><button disabled={this.state.currentPage === 1 ? true : false}>이전</button></li>
+                    <li><button onClick={()=>this.prevPaging()} disabled={this.state.currentPage === 1 ? true : false}>이전</button></li>
                     <li>
                         {/* 페이지 번호 분할(10개 단위로) */}
                         <ol className="pageNumberList">
@@ -301,7 +303,7 @@ class BoardList extends Component {
                             <li><a href="#">3</a></li> */}
                         </ol>
                     </li>
-                    <li><button disabled={this.state.currentPage === this.state.pgaeList.length ? true : false}>다음</button></li>
+                    <li><button onClick={()=>this.nextPaging()} disabled={this.state.currentPage === this.state.pgaeList.length ? true : false}>다음</button></li>
                     <li><button onClick={()=>this.lastPaging()} disabled={this.state.currentPage === this.state.pgaeList.length ? true : false}>맨끝</button></li>
                 </ul>
             </div>
@@ -321,9 +323,15 @@ class BoardList extends Component {
     // }
     
     firstPaging=()=>{
-        // ================================== 페이지 처음 이전 다음 맨끝 버튼
         this.setState({
             currentPage:1
+        },()=> this.boardListFnc())
+    }
+    prevPaging=()=>{
+        let prev = this.state.currentPage-1
+        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',prev)
+        this.setState({
+            currentPage:prev
         },()=> this.boardListFnc())
     }
     lastPaging=()=>{
@@ -331,7 +339,13 @@ class BoardList extends Component {
             currentPage:this.state.pgaeList.length
         },()=> this.boardListFnc())
     }
-    
+    nextPaging=()=>{
+        let next = this.state.currentPage+1
+        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',next)
+        this.setState({
+            currentPage:next
+        },()=> this.boardListFnc())
+    }
 
     boardListFnc=()=>{
         let sliceListArray = [];
@@ -361,16 +375,32 @@ class BoardList extends Component {
         let test = Math.ceil(this.state.boardTitle.length/5)
         let pageArray = []
         for(let k =0; k<test; k++){
-            pageArray.push(k+1)
+            pageArray.push(k+1);
         }
-        if(pageArray >5){
-            //페이지가 5개가 넘으면 잘라서 나누어야 함
+        console.log(pageArray)
 
-        }
+        for(let i = 0; i < pageArray.length; i+=5){
+            let pageLists = pageArray.slice(i,i+5);
+            this.state.pgaeList.push(pageLists)
+         }
+        console.log(this.state.newPageArrays)
+
         this.setState({
             totalPage:test,
-            pgaeList:pageArray,
+            // pgaeList:pageArray,
         })
+    }
+
+    pageGroupFnc=()=>{
+        if(this.state.pgaeList.length > 5){
+            //페이지가 5개가 넘으면 잘라서 나누어야 함
+            // let newPageArray = []
+            for(let i = 0; i<this.state.pgaeList.length; i+=5){
+               let pageList = this.state.pgaeList.slice(i,i+5);
+               this.state.newPageArrays.push(pageList)
+            }
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',this.state.newPageArrays)
+        }
     }
 
     clickNumber=(page)=>{
