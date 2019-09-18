@@ -289,7 +289,7 @@ class BoardList extends Component {
                     <li><button onClick={()=>this.firstPaging()} disabled={this.state.currentPage === 1 ? true : false}>처음</button></li>
                     <li><button onClick={()=>this.prevPaging()} disabled={this.state.currentPage === 1 ? true : false}>이전</button></li>
                     <li>
-                        {/* 페이지 번호 분할(10개 단위로) */}
+                        {/* 페이지 번호 분할(5개 단위로) */}
                         <ol className="pageNumberList">
                             {
                                 this.state.pgaeList.map((page,pageIndex)=>{
@@ -298,6 +298,7 @@ class BoardList extends Component {
                                     )
                                 })
                             }
+                           
                             {/* <li><a href="#" className="currentPageCss">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li> */}
@@ -373,35 +374,42 @@ class BoardList extends Component {
     pageListFnc=()=>{
         // =============================== 페이지 숫자 리스트
         let test = Math.ceil(this.state.boardTitle.length/5)
-        let pageArray = []
+        let pageArray = [];
+        let pageLists = [];
+        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>',test)
         for(let k =0; k<test; k++){
             pageArray.push(k+1);
         }
-        console.log(pageArray)
+        console.log('pageArray',pageArray)
+
 
         for(let i = 0; i < pageArray.length; i+=5){
-            let pageLists = pageArray.slice(i,i+5);
-            this.state.pgaeList.push(pageLists)
-         }
-        console.log(this.state.newPageArrays)
+            pageLists = pageArray.slice(i,i+5);
+            // this.state.pgaeList.push(pageLists)
+            // console.log(pageLists,'pageLists');
+            this.state.newPageArrays.push(pageLists);
+        }
+
+        console.log('this.state.newPageArray',this.state.newPageArrays)
+        
 
         this.setState({
             totalPage:test,
-            // pgaeList:pageArray,
+            pgaeList:pageArray,
         })
     }
 
-    pageGroupFnc=()=>{
-        if(this.state.pgaeList.length > 5){
-            //페이지가 5개가 넘으면 잘라서 나누어야 함
-            // let newPageArray = []
-            for(let i = 0; i<this.state.pgaeList.length; i+=5){
-               let pageList = this.state.pgaeList.slice(i,i+5);
-               this.state.newPageArrays.push(pageList)
-            }
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',this.state.newPageArrays)
-        }
-    }
+    // pageGroupFnc=()=>{
+    //     if(this.state.pgaeList.length > 5){
+    //         //페이지가 5개가 넘으면 잘라서 나누어야 함
+    //         // let newPageArray = []
+    //         for(let i = 0; i<this.state.pgaeList.length; i+=5){
+    //            let pageList = this.state.pgaeList.slice(i,i+5);
+    //            this.state.newPageArrays.push(pageList)
+    //         }
+    //         console.log('>>>>>>>>>>>>>',this.state.newPageArrays)
+    //     }
+    // }
 
     clickNumber=(page)=>{
         // ============================== 숫자 눌렀을 때 게시판 리스트 이동
