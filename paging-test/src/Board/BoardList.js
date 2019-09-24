@@ -389,6 +389,7 @@ class BoardList extends Component {
             // console.log(pageLists,'pageLists');
             this.state.newPageArrays.push(pageLists);
         }
+        // newPageArrays[[12345],[678910],[1112]]
 
         console.log('this.state.newPageArray',this.state.newPageArrays)
         
