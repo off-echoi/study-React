@@ -276,8 +276,8 @@ class BoardRe extends Component {
                 }
             </ul>
             <ul className="btnGroup">
-                    <li><button>처음</button></li>
-                    <li><button>이전</button></li>
+                    <li><button onClick={this.fistPaging} disabled={this.state.currentPage === 1 ? true :false}>맨앞</button></li>
+                    <li><button onClick={this.prevPaging} disabled={this.state.currentPage === 1 ? true :false}>이전</button></li>
                     <li>
                         {/* 페이지 번호 분할(5개 단위로) */}
                         <ol className="pageNumberList">
@@ -293,8 +293,8 @@ class BoardRe extends Component {
                             <li><a href="#">3</a></li> */}
                         </ol>
                     </li>
-                    <li><button>다음</button></li>
-                    <li><button>맨끝</button></li>
+                    <li><button onClick={this.nextPaging} disabled={this.state.currentPage === this.state.sliceList.length ? true :false}>다음</button></li>
+                    <li><button onClick={this.lastPaging} disabled={this.state.currentPage === this.state.sliceList.length ? true :false}>맨끝</button></li>
                 </ul>
         </div>
     )}
@@ -330,15 +330,52 @@ class BoardRe extends Component {
             thisPageNum: this.state.pageSlice[0],
         });
     }
-    
+    // ========================= 숫자 눌렀을때 이동
     movePageFnc=(page)=>{
         // console.log(page)
-        
         this.setState({
             currentPage: page,
         },()=>this.boardListFnc());
     }
-    
+    // ========================= 맨앞 버튼
+    fistPaging=()=>{
+        this.setState({
+            currentPage : 1
+        },()=> this.boardListFnc());
+        
+    }
+    // ========================= 이전 버튼
+    prevPaging=()=>{
+        let prev = this.state.currentPage-1;
+        this.setState({
+            currentPage:prev
+        },()=> this.boardListFnc())
+    }
+    // ======================== 다음 버튼
+    nextPaging=()=>{
+        let next = this.state.currentPage+1;
+        console.log(this.state.pageSlice);
+        //지금 배열의 마지막이 5의 배수이면(showList의 배수))  다음배열로 넘어가기   아니면 가만히 있기
+        this.state.pageSlice.forEach((v,i,ele)=>{
+            console.log(ele,';l;;;')
+            console.log(v,i,ele)
+        })
+        // for(let i = 0; i<this.state.pageSlice.length ; i++){
+        //     if(this.state.currentPage === this.state.pageSlice[i].length-1){
+        //         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',this.state.pageSlice[i])
+        //     }
+        // }
+
+        this.setState({
+            currentPage:next
+        },()=> this.boardListFnc())
+    }
+    // ======================== 맨끝 버튼
+    lastPaging=()=>{
+        this.setState({
+            currentPage: this.state.sliceList.length
+        },()=> this.boardListFnc())
+    }
 }
 
 export default BoardRe;
