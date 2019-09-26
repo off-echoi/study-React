@@ -239,8 +239,10 @@ class BoardRe extends Component {
                     title:'게시판 제목 58'
                 },
             ],
-            // 리스트 출력 개수
+            // 게시판 리스트 출력 개수
             showList:5,
+            // 페이지 리스트 출력 개수
+            pageList:5,
             //현재 페이지
             currentPage:1,
 
@@ -276,8 +278,10 @@ class BoardRe extends Component {
                 }
             </ul>
             <ul className="btnGroup">
-                    <li><button onClick={this.fistPaging} disabled={this.state.currentPage === 1 ? true :false}>맨앞</button></li>
-                    <li><button onClick={this.prevPaging} disabled={this.state.currentPage === 1 ? true :false}>이전</button></li>
+                    {/* <li><button onClick={this.fistPaging} disabled={this.state.currentPage === 1 ? true :false}>맨앞</button></li> */}
+                    <li><button onClick={this.fistPaging}>맨앞</button></li>
+                    <li><button onClick={this.prevPaging}>이전</button></li>
+                    {/* <li><button onClick={this.prevPaging} disabled={this.state.currentPage === 1 ? true :false}>이전</button></li> */}
                     <li>
                         {/* 페이지 번호 분할(5개 단위로) */}
                         <ol className="pageNumberList">
@@ -293,8 +297,10 @@ class BoardRe extends Component {
                             <li><a href="#">3</a></li> */}
                         </ol>
                     </li>
-                    <li><button onClick={this.nextPaging} disabled={this.state.currentPage === this.state.sliceList.length ? true :false}>다음</button></li>
-                    <li><button onClick={this.lastPaging} disabled={this.state.currentPage === this.state.sliceList.length ? true :false}>맨끝</button></li>
+                    {/* <li><button onClick={this.nextPaging} disabled={this.state.currentPage === this.state.sliceList.length ? true :false}>다음</button></li> */}
+                    <li><button onClick={this.nextPaging}>다음</button></li>
+                    <li><button onClick={this.lastPaging}>맨끝</button></li>
+                    {/* <li><button onClick={this.lastPaging} disabled={this.state.currentPage === this.state.sliceList.length ? true :false}>맨끝</button></li> */}
                 </ul>
         </div>
     )}
@@ -323,7 +329,8 @@ class BoardRe extends Component {
         }
         // console.log(pageAll) [1,2,3,4,5,....12] (리스트 갯수)
         while(pageAll.length>0){
-            this.state.pageSlice.push(pageAll.splice(0,this.state.showList))
+            // this.state.pageSlice.push(pageAll.splice(0,this.state.showList))
+            this.state.pageSlice.push(pageAll.splice(0,this.state.pageList))
         }
         // console.log(this.state.pageSlice[this.state.currentPage])
         this.setState({
@@ -340,13 +347,25 @@ class BoardRe extends Component {
     // ========================= 맨앞 버튼
     fistPaging=()=>{
         this.setState({
-            currentPage : 1
-        },()=> this.boardListFnc());
+            currentPage : 1,
+            thisPageNum: this.state.pageSlice[0],
+        },()=> {this.boardListFnc()});
         
     }
     // ========================= 이전 버튼
     prevPaging=()=>{
         let prev = this.state.currentPage-1;
+        //지금 배열의 처음이 6,11((1 * pageList) +1) 이면 이전배열로 넘어가기 
+        for(let i =0; i < this.state.pageSlice.length ; i++){
+            if(this.state.currentPage === (i+1)*this.state.pageList+1){
+                this.setState({
+                    thisPageNum: this.state.pageSlice[i],
+                });
+            }
+        }
+        if(this.state.currentPage === 1){
+            prev = this.state.currentPage
+        }
         this.setState({
             currentPage:prev
         },()=> this.boardListFnc())
@@ -354,18 +373,18 @@ class BoardRe extends Component {
     // ======================== 다음 버튼
     nextPaging=()=>{
         let next = this.state.currentPage+1;
-        console.log(this.state.pageSlice);
-        //지금 배열의 마지막이 5의 배수이면(showList의 배수))  다음배열로 넘어가기   아니면 가만히 있기
-        this.state.pageSlice.forEach((v,i,ele)=>{
-            console.log(ele,';l;;;')
-            console.log(v,i,ele)
-        })
-        // for(let i = 0; i<this.state.pageSlice.length ; i++){
-        //     if(this.state.currentPage === this.state.pageSlice[i].length-1){
-        //         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',this.state.pageSlice[i])
-        //     }
-        // }
-
+        // console.log(this.state.pageSlice);
+        //지금 배열의 마지막이 pageList의 배수이면 다음배열로 넘어가기
+        for(let i =0; i < this.state.pageSlice.length ; i++){
+            if(this.state.currentPage === i*this.state.pageList){
+                this.setState({
+                    thisPageNum: this.state.pageSlice[i],
+                });
+            }
+        }
+        if(this.state.currentPage === this.state.sliceList.length){
+            next = this.state.currentPage
+        }
         this.setState({
             currentPage:next
         },()=> this.boardListFnc())
@@ -373,7 +392,8 @@ class BoardRe extends Component {
     // ======================== 맨끝 버튼
     lastPaging=()=>{
         this.setState({
-            currentPage: this.state.sliceList.length
+            currentPage: this.state.sliceList.length,
+            thisPageNum: this.state.pageSlice[this.state.pageSlice.length-1],
         },()=> this.boardListFnc())
     }
 }
