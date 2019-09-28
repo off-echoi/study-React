@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Title} from '../common/Common';
+// 1. 페이지 이동함수 공통처리  
+// 2. 이전, 다음 버튼 한 그룹씩 옮기기
+// 3. 상세(일단은 온로드에서 현대페이지뭐다 콘솔찍기)
 
 class BoardRe extends Component {
     constructor(props) {
@@ -8,7 +11,8 @@ class BoardRe extends Component {
             boardTitle:[
                 {
                     seq:1,
-                    title:'게시판 제목 1'
+                    title:'게시판 제목 1',
+                    content:'게시판 내용 1'
                 },
                 {
                     seq:2,
@@ -240,9 +244,9 @@ class BoardRe extends Component {
                 },
             ],
             // 게시판 리스트 출력 개수
-            showList:5,
+            showList:10,
             // 페이지 리스트 출력 개수
-            pageList:5,
+            pageList:3,
             //현재 페이지
             currentPage:1,
 
@@ -271,7 +275,7 @@ class BoardRe extends Component {
                         return(
                             <li className="list" key={v+i}>
                                 <span>{v.seq}</span>
-                                <a href="#" className="listTitle">{v.title}</a>
+                                <a href="#" className="listTitle" onClick={()=>this.clickFnc(v.seq)}>{v.title}</a>
                             </li>
                         )
                     })
@@ -308,6 +312,10 @@ class BoardRe extends Component {
         this.boardListFnc();
         this.pagingFnc();
     }
+    // ======================== 현재 누른 seq 
+    clickFnc=(seqqq)=>{
+        console.log(seqqq)
+    }
     // ======================== 페이지 출력
     boardListFnc=()=>{
         //리스트 showList(5개)로 나눔
@@ -340,6 +348,7 @@ class BoardRe extends Component {
     // ========================= 숫자 눌렀을때 이동
     movePageFnc=(page)=>{
         // console.log(page)
+        this.props.history.push();
         this.setState({
             currentPage: page,
         },()=>this.boardListFnc());
@@ -369,6 +378,12 @@ class BoardRe extends Component {
         this.setState({
             currentPage:prev
         },()=> this.boardListFnc())
+    }
+    prevPagingNum=()=>{
+        console.log(this.state.pageSlice,">>>>>>>>>>>>>>>>> slicelist")
+        console.log(this.state.thisPageNum,"!!!!!!!!!!!!!!!!")
+
+
     }
     // ======================== 다음 버튼
     nextPaging=()=>{
