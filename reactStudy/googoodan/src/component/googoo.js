@@ -15,7 +15,7 @@ class googoo extends Component {
             <div>
                 <p>{this.state.number1} 곱하기 {this.state.number2} (은)는?</p>
                 <form onSubmit={(e)=>this.sub(e)}>
-                    <input type="number" value={this.state.value} onChange={(e)=>this.valueFnc(e)}/>
+                    <input type="number" value={this.state.value} onChange={(e)=>this.valueFnc(e)} ref={this.refInput}/>
                     <input type="button" value="입력" onClick={(e)=>this.sub(e)}/>
                 </form>
                 <p>
@@ -47,18 +47,22 @@ class googoo extends Component {
     sub=(e)=>{
         e.preventDefault();
         if(parseInt(this.state.value) === this.state.number1 * this.state.number2){
-            this.setState({ 
+            this.setState((prevState) => { return { 
                 value:'',
-                result:'정답'
-             },()=>this.numberFnc());
+                result:'정답 : '+prevState.value
+             }},()=>this.numberFnc());
+             this.input.focus()
         }else{
             this.setState({
                 value:'',
                 result:'땡'
             });
-            
+            this.input.focus()
         }
         // inpNum
+    }
+    refInput= (c)=>{
+        {this.input = c}
     }
 }
 
