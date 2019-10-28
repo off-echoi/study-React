@@ -1,24 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './Movie.css'
 
-class Movie extends Component {
-    render() {
-        return (
-            <ul>
-                <li>
-                    <MoviePoster imgSrc = {this.props.poster} />
-                    <h4>{this.props.title}</h4>
-                </li>
-            </ul>
-        );
-    }
+function Movie({year, title, summary, poster, genres}){
+    return (
+       <div className="movie">
+           <img src={poster} alt={title} title={title}/>
+           <div className="movie__data">
+                <h3 className="movie__title">{title}</h3>
+                <h5 className="movie__year">{year}</h5>
+                <ul className="movie__genres">
+                    {genres.map((gen,index)=>{
+                        return (
+                            <li key="i" className="genres__genre">{gen}</li>
+                        )
+                    })}
+                </ul>
+                <p className="movie__summary">{summary.slice(0,200)}...</p>
+           </div>
+       </div>
+        
+    );
 }
 
-class MoviePoster extends Component{
-    render() {
-        return (
-            <img src={this.props.imgSrc} alt = {this.props.imgMsg} />
-        );
-    }
+
+Movie.propTypes = {
+    id : PropTypes.number.isRequired,
+    year : PropTypes.number.isRequired,
+    title : PropTypes.string.isRequired,
+    summary : PropTypes.string.isRequired,
+    poster : PropTypes.string.isRequired,
+    genres : PropTypes.arrayOf(PropTypes.string).isRequired
 }
+
 export default Movie;
